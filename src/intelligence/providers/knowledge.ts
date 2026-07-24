@@ -112,7 +112,7 @@ function normalise(value: string): string {
 function meaningfulTokens(text: string): Set<string> {
     return new Set(
         normalise(text)
-            .split(/[\s,.\-–-:;!?'"()[\]]+/)
+            .split(/[\s,.\-:;!?'"()\[\]\u2013\u2014]+/)
             .filter((t) => t.length > 1 && !STOPWORDS.has(t)),
     );
 }

@@ -155,49 +155,72 @@ export default function StudioClient() {
     };
   }, []);
 
+  const hasInitializedRef = useRef(false);
+
+  // Guaranteed safety fallback to dismiss loading screen even if video metadata is delayed or blocked
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const initAnimations = () => {
+    setIsLoading(false);
+    if (hasInitializedRef.current) return;
+    hasInitializedRef.current = true;
+
+    const video = videoRef.current;
+    if (video) {
+      gsap.to(video, {
+        currentTime: video.duration || 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: pageRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.1,
+        },
+      });
+    }
+
+    if (heroTextRef.current) {
+      gsap.to(heroTextRef.current, {
+        opacity: 0,
+        y: -80,
+        ease: 'power1.inOut',
+        scrollTrigger: {
+          trigger: heroTextRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
+  };
+
   // Scroll scrubbing video trigger setup
   useGSAP(
     () => {
       const video = videoRef.current;
       if (!video) return;
 
-      const handleMetadata = () => {
-        setIsLoading(false);
-        
-        // 1. Scrub background video across the entire page scroll height
-        gsap.to(video, {
-          currentTime: video.duration || 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: pageRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 0.1, // Smooth, low delay scrub
-          },
-        });
-
-        // 2. Fade out Hero overlay text as it scrolls out of the first viewport
-        gsap.to(heroTextRef.current, {
-          opacity: 0,
-          y: -80,
-          ease: 'power1.inOut',
-          scrollTrigger: {
-            trigger: heroTextRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      };
-
       if (video.readyState >= 1) {
-        handleMetadata();
+        initAnimations();
       } else {
-        video.addEventListener('loadedmetadata', handleMetadata);
+        video.addEventListener('loadedmetadata', initAnimations);
+        video.addEventListener('loadeddata', initAnimations);
+        video.addEventListener('canplay', initAnimations);
+        video.addEventListener('error', initAnimations);
+        video.load();
       }
 
       return () => {
-        video.removeEventListener('loadedmetadata', handleMetadata);
+        video.removeEventListener('loadedmetadata', initAnimations);
+        video.removeEventListener('loadeddata', initAnimations);
+        video.removeEventListener('canplay', initAnimations);
+        video.removeEventListener('error', initAnimations);
       };
     },
     { scope: pageRef }
@@ -213,6 +236,9 @@ export default function StudioClient() {
           muted
           playsInline
           preload="auto"
+          onLoadedMetadata={initAnimations}
+          onCanPlay={initAnimations}
+          onError={initAnimations}
           className="absolute inset-0 w-full h-full object-cover"
         />
 
@@ -222,14 +248,21 @@ export default function StudioClient() {
       </div>
 
       {/* Loading Overlay */}
-      {isLoading && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#080808]">
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-            <span className="text-xs uppercase tracking-widest text-white/50 font-questrial">Loading Environment...</span>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#080808] pointer-events-none"
+          >
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+              <span className="text-xs uppercase tracking-widest text-white/50 font-questrial">Loading Environment...</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── SCROLLABLE SECTIONS LAYER ── */}
       <div className="relative z-10 w-full">
