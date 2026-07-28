@@ -64,37 +64,40 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     }, [pathname]);
 
     const isDetailPage = false;
+    const isBookPage = pathname === '/book' || pathname.startsWith('/book/');
 
     return (
         <InputTypeContext.Provider value={inputTypes}>
             <LenisProvider>
-                <Navbar />
+                {!isBookPage && <Navbar />}
                 {/* Main content + Footer */}
                 <MainRevealWrapper>
                     {children}
                     {pathname === '/' && <FAQ />}
                 </MainRevealWrapper>
                 {/* Footer curtain pinned behind main content */}
-                {!isDetailPage && (
+                {!isDetailPage && !isBookPage && (
                     <FooterRevealWrapper>
                         <FooterCurtain />
                     </FooterRevealWrapper>
                 )}
-                <GradualBlur
-                    target="page"
-                    position="bottom"
-                    height="6rem"
-                    strength={2}
-                    divCount={5}
-                    curve="bezier"
-                    exponential={true}
-                    opacity={1}
-                    style={{
-                        opacity: (pathname !== '/') ? (isAtBottom ? 0 : 1) : 0,
-                        pointerEvents: 'none',
-                        transition: 'opacity 0.3s ease-out'
-                    }}
-                />
+                {!isBookPage && (
+                    <GradualBlur
+                        target="page"
+                        position="bottom"
+                        height="6rem"
+                        strength={2}
+                        divCount={5}
+                        curve="bezier"
+                        exponential={true}
+                        opacity={1}
+                        style={{
+                            opacity: (pathname !== '/') ? (isAtBottom ? 0 : 1) : 0,
+                            pointerEvents: 'none',
+                            transition: 'opacity 0.3s ease-out'
+                        }}
+                    />
+                )}
             </LenisProvider>
         </InputTypeContext.Provider>
     );

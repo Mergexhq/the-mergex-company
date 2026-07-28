@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
     return (
-        <main className="bg-[var(--bg-primary)] min-h-screen pt-28 pb-16 text-[var(--text-primary)] font-body">
+        <main className="bg-[var(--bg-primary)] min-h-screen pt-12 md:pt-16 pb-16 text-[var(--text-primary)] font-body">
             <div className="container mx-auto max-w-[1200px] px-6 md:px-8">
                 <div className="text-center max-w-2xl mx-auto mb-10 space-y-4">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-tertiary)] block font-questrial">

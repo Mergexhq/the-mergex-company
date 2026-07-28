@@ -154,14 +154,32 @@ export function Navbar() {
                         <div className="w-full h-20 xl:h-24 flex items-center justify-between px-4 xl:px-6">
                             {/* Logo - Left */}
                             <div className="flex items-center pointer-events-auto">
-                                <Link href="/" className="flex items-center gap-0">
-                                    <Image
-                                        src="/logo/mergex-logo-black.webp"
-                                        alt="MergeX Logo"
-                                        width={32}
-                                        height={32}
-                                        className={`object-contain transition-all duration-300 w-5 h-5 xl:w-[20px] xl:h-[20px] 2xl:w-[22px] 2xl:h-[22px] ${isLightPage ? '' : 'brightness-0 invert'}`}
-                                    />
+                                <Link
+                                    href="/"
+                                    onMouseEnter={() => setIsLogoHovered(true)}
+                                    onMouseLeave={() => setIsLogoHovered(false)}
+                                    className="flex items-center gap-0 group"
+                                >
+                                    <div className="relative w-5 h-5 xl:w-[20px] xl:h-[20px] 2xl:w-[22px] 2xl:h-[22px] flex items-center justify-center">
+                                        <Image
+                                            src="/logo/mergex-logo-black.webp"
+                                            alt="MergeX Logo"
+                                            width={32}
+                                            height={32}
+                                            className={`object-contain transition-all duration-300 w-full h-full absolute inset-0 ${
+                                                isLightPage ? '' : 'brightness-0 invert'
+                                            } ${isLogoHovered ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}
+                                        />
+                                        <Image
+                                            src="/logo/mergex-logo-hover.webp"
+                                            alt="MergeX Hover Logo"
+                                            width={32}
+                                            height={32}
+                                            className={`object-contain transition-all duration-300 w-full h-full absolute inset-0 ${
+                                                isLogoHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                                            }`}
+                                        />
+                                    </div>
                                     <span
                                         className={`font-questrial text-[17px] xl:text-[19px] 2xl:text-[21px] tracking-[0.12em] ml-2.5 xl:ml-3 flex items-center ${textColorClass} transition-colors duration-300`}
                                     >
@@ -199,14 +217,28 @@ export function Navbar() {
                               }
                               if (pathname === '/brands/mergex') {
                                 return (
-                                  <Link href="/brands/mergex" className="flex items-center justify-center gap-1.5 pointer-events-auto">
-                                    <Image
-                                      src="/logo/mergex-logo-black.webp"
-                                      alt="MergeX Logo"
-                                      width={40}
-                                      height={40}
-                                      className={`object-contain transition-all duration-300 w-5 h-5 ${isLightPage ? '' : 'brightness-0 invert'}`}
-                                    />
+                                  <Link
+                                    href="/brands/mergex"
+                                    onMouseEnter={() => setIsLogoHovered(true)}
+                                    onMouseLeave={() => setIsLogoHovered(false)}
+                                    className="flex items-center justify-center gap-1.5 pointer-events-auto"
+                                  >
+                                    <div className="relative w-5 h-5 flex items-center justify-center">
+                                      <Image
+                                        src="/logo/mergex-logo-black.webp"
+                                        alt="MergeX Logo"
+                                        width={40}
+                                        height={40}
+                                        className={`object-contain transition-all duration-300 w-full h-full absolute inset-0 ${isLightPage ? '' : 'brightness-0 invert'} ${isLogoHovered ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}
+                                      />
+                                      <Image
+                                        src="/logo/mergex-logo-hover.webp"
+                                        alt="MergeX Hover Logo"
+                                        width={40}
+                                        height={40}
+                                        className={`object-contain transition-all duration-300 w-full h-full absolute inset-0 ${isLogoHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                                      />
+                                    </div>
                                     <span
                                       className={`font-questrial font-bold text-2xl tracking-[0.12em] ml-1 flex items-center ${isLightPage ? 'text-black' : 'text-white'}`}
                                     >
@@ -216,14 +248,28 @@ export function Navbar() {
                                 );
                               }
                               return (
-                                <Link href="/" className="flex items-center justify-center gap-1.5 pointer-events-auto">
-                                  <Image
-                                    src="/logo/mergex-logo-black.webp"
-                                    alt="MergeX Logo"
-                                    width={32}
-                                    height={32}
-                                    className={`object-contain transition-all duration-300 w-4 h-4 ${isLightPage ? '' : 'brightness-0 invert'}`}
-                                  />
+                                <Link
+                                  href="/"
+                                  onMouseEnter={() => setIsLogoHovered(true)}
+                                  onMouseLeave={() => setIsLogoHovered(false)}
+                                  className="flex items-center justify-center gap-1.5 pointer-events-auto"
+                                >
+                                  <div className="relative w-4 h-4 flex items-center justify-center">
+                                    <Image
+                                      src="/logo/mergex-logo-black.webp"
+                                      alt="MergeX Logo"
+                                      width={32}
+                                      height={32}
+                                      className={`object-contain transition-all duration-300 w-full h-full absolute inset-0 ${isLightPage ? '' : 'brightness-0 invert'} ${isLogoHovered ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}
+                                    />
+                                    <Image
+                                      src="/logo/mergex-logo-hover.webp"
+                                      alt="MergeX Hover Logo"
+                                      width={32}
+                                      height={32}
+                                      className={`object-contain transition-all duration-300 w-full h-full absolute inset-0 ${isLogoHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                                    />
+                                  </div>
                                   <span className={`font-questrial text-[16px] tracking-[0.12em] ml-1 flex items-center ${isLightPage ? 'text-black' : 'text-white'}`}>
                                     <span className="font-bold">MERGEX</span>
                                     {pathname === '/studio' && (

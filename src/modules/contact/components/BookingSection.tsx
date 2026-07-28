@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowRight, ChevronDown, ExternalLink } from 'lucide-react';
-import CalEmbed from '@/components/ui/CalEmbed';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 
 interface BookingSectionProps {
     calNamespace?: string;
@@ -13,73 +12,54 @@ export function BookingSection({
     calNamespace = 'meet',
     calLink = 'mergex/meet',
 }: BookingSectionProps) {
-    const [showEmbed, setShowEmbed] = useState(false);
-
     return (
         <section id="booking-section" className="bg-[var(--bg-primary)] pt-0 pb-16 relative overflow-hidden z-20">
             <div className="container mx-auto max-w-[1400px] px-6 md:px-8">
-                {/* Taller Aspect Ratio Card on Mobile, dynamic height on desktop when expanded */}
-                <div className="relative w-full rounded-[16px] overflow-hidden bg-[var(--bg-secondary)] border border-black/5 dark:border-white/5 flex flex-col justify-between p-8 md:p-12 lg:p-16 shadow-md hover:shadow-lg transition-all duration-300">
+                {/* Taller Aspect Ratio Card with generous min-height */}
+                <div className="relative w-full rounded-[20px] md:rounded-[24px] overflow-hidden bg-[var(--bg-secondary)] border border-black/5 dark:border-white/5 min-h-[440px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[640px] flex flex-col justify-between p-8 md:p-14 lg:p-16 shadow-md hover:shadow-lg transition-all duration-300 group">
                     {/* Mobile Background Image Layer */}
-                    {!showEmbed && (
-                        <div
-                            className="absolute inset-0 z-0 bg-no-repeat bg-bottom md:hidden"
-                            style={{
-                                backgroundImage: "url('/background/contact/schedule-mobile.webp')",
-                                backgroundSize: 'cover',
-                            }}
-                        />
-                    )}
+                    <div
+                        className="absolute inset-0 z-0 bg-no-repeat bg-bottom md:hidden transition-transform duration-700 group-hover:scale-[1.02]"
+                        style={{
+                            backgroundImage: "url('/background/contact/schedule-mobile.webp')",
+                            backgroundSize: 'cover',
+                        }}
+                    />
 
                     {/* Desktop Background Image Layer */}
-                    {!showEmbed && (
-                        <div
-                            className="absolute inset-0 z-0 bg-no-repeat bg-bottom hidden md:block"
-                            style={{
-                                backgroundImage: "url('/background/contact/schedule.webp')",
-                                backgroundSize: 'cover',
-                            }}
-                        />
-                    )}
+                    <div
+                        className="absolute inset-0 z-0 bg-no-repeat bg-bottom hidden md:block transition-transform duration-700 group-hover:scale-[1.02]"
+                        style={{
+                            backgroundImage: "url('/background/contact/schedule.webp')",
+                            backgroundSize: 'cover',
+                        }}
+                    />
 
-                    {/* Content Container */}
-                    <div className="relative z-10 ml-auto w-full h-full flex flex-col justify-between items-start gap-8">
-                        {/* Header & Action Button Row */}
-                        <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                            <div className="space-y-4 pt-2 max-w-xl">
-                                <h3 className="text-3xl md:text-4xl lg:text-5xl font-questrial font-bold tracking-tight text-[var(--text-primary)] leading-tight">
-                                    Prefer a conversation?
-                                </h3>
-                                <p className="text-base md:text-lg lg:text-xl text-[var(--text-secondary)] font-light leading-relaxed">
-                                    Book a discovery call and let&apos;s discuss your project.
-                                </p>
-                            </div>
+                    {/* Top Right Content: Title & Subtitle */}
+                    <div className="relative z-10 w-full md:w-[50%] lg:w-[45%] md:ml-auto space-y-4 pt-2">
+                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-questrial font-bold tracking-tight text-[var(--text-primary)] leading-[1.15]">
+                            Prefer a conversation?
+                        </h3>
+                        <p className="text-base md:text-lg lg:text-xl text-[var(--text-secondary)] font-light leading-relaxed">
+                            Book a discovery call and let&apos;s discuss your project.
+                        </p>
+                    </div>
 
-                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full md:w-auto">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowEmbed((prev) => !prev)}
-                                    className="inline-flex w-full md:w-auto items-center justify-center gap-3 rounded-full border border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-transparent hover:text-[var(--text-primary)] px-6 py-3 text-xs md:px-8 md:py-4 md:text-base font-semibold tracking-wide active:scale-[0.98] transition-all cursor-pointer font-questrial"
-                                >
-                                    {showEmbed ? 'Hide Calendar' : 'Book a Discovery Call'}
-                                    {showEmbed ? (
-                                        <ChevronDown className="w-4 h-4 transition-transform rotate-180" />
-                                    ) : (
-                                        <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Embedded Cal.com Calendar */}
-                        {showEmbed && (
-                            <div className="w-full mt-4 rounded-xl overflow-hidden border border-black/10 dark:border-white/10 bg-[var(--bg-primary)] p-4 md:p-6 shadow-inner min-h-[650px]">
-                                <CalEmbed namespace={calNamespace} calLink={calLink} />
-                            </div>
-                        )}
+                    {/* Bottom Right Content: Action Button */}
+                    <div className="relative z-10 w-full md:w-auto md:ml-auto pt-8 md:pt-0">
+                        <Link
+                            href="/book"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full border border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-transparent hover:text-[var(--text-primary)] px-6 py-3.5 text-sm md:px-8 md:py-4 md:text-base font-semibold tracking-wide active:scale-[0.98] transition-all cursor-pointer font-questrial shadow-sm"
+                        >
+                            <span>Book a Discovery Call</span>
+                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
+                        </Link>
                     </div>
                 </div>
             </div>
         </section>
     );
 }
+
