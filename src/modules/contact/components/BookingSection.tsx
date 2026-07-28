@@ -21,6 +21,11 @@ export function BookingSection({
                 {/* Taller Aspect Ratio Card on Mobile, dynamic height on desktop when expanded */}
                 <div className="relative w-full rounded-[16px] overflow-hidden bg-[var(--bg-secondary)] border border-black/5 dark:border-white/5 flex flex-col justify-between p-8 md:p-12 lg:p-16 shadow-md hover:shadow-lg transition-all duration-300">
                     {/* Mobile Background Image Layer */}
+
+
+
+
+                    
                     {!showEmbed && (
                         <div
                             className="absolute inset-0 z-0 bg-no-repeat bg-bottom md:hidden"
