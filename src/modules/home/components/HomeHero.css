@@ -131,7 +131,7 @@
   position: relative;
   z-index: 2;
   padding: 60px clamp(24px, 5vw, 72px) 0;
-  max-width: 820px;
+  max-width: 960px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -169,9 +169,8 @@
 .hh-heading {
   margin: 0;
   font-family: var(--hh-serif);
-  font-size: clamp(38px, 4.8vw, 64px);
-  font-weight: 400;
-  line-height: 1.1;
+  font-size: clamp(32px, 4.2vw, 58px);
+  line-height: 1.12;
   letter-spacing: -0.02em;
   font-style: normal;
   will-change: transform, opacity;
@@ -413,7 +412,7 @@
   }
 
   .hh-heading {
-    font-size: clamp(32px, 8.5vw, 44px);
+    font-size: clamp(24px, 6.8vw, 36px);
   }
 }
 
