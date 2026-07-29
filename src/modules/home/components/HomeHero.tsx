@@ -110,8 +110,8 @@ export function HomeHero() {
           <div className="hh-push-up flex flex-col items-start">
             <div className="hh-top-content">
               <h1 className="hh-heading">
-                <span className="hh-heading-line hh-animate">Business deserves</span>
-                <span className="hh-heading-accent hh-animate">better technology.</span>
+                <span className="hh-heading-line hh-animate">Engineering the systems</span>
+                <span className="hh-heading-accent hh-animate">behind better businesses.</span>
               </h1>
             </div>
           </div>
